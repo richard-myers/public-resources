@@ -49,6 +49,46 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* ───── 1a. Pre-hydrate fallback ─────
+   Custom elements default to display:inline in browsers. Without deck.js
+   running (network failure, JS disabled, or the moment between page load
+   and DOMContentLoaded), the deck would otherwise collapse to a single
+   line of unstyled text. These rules give every host element block layout
+   and minimal readable typography so the content is at least legible as
+   a vertical document — and there's no flash of invisible content while
+   the runtime hydrates. Component-specific selectors below override these
+   defaults once the expander has run. */
+deck-slide, deck-config, deck-card, deck-callout, deck-panel,
+deck-stat-grid, deck-stat, deck-section-emphasis,
+deck-pullquote, deck-prompt,
+deck-timeline, deck-timeline-item,
+deck-flow, deck-flow-step, deck-step-row,
+deck-compare, deck-compare-good, deck-compare-bad,
+deck-pros-cons, deck-pros, deck-cons,
+deck-resolved-list, deck-resolved-item,
+deck-chart, deck-bar-row, deck-gauge, deck-raw {
+  display: block;
+}
+deck-badge, deck-tag, deck-mark { display: inline; }
+deck-config { display: none; }
+/* Hide raw [slot="detail"] / .hd children until the runtime promotes them
+   into the overlay. The §11 rule does this once `.deck-hoverable` is
+   assigned; this is the pre-hydrate equivalent. */
+deck-slide [slot="detail"], deck-card [slot="detail"], deck-callout [slot="detail"],
+deck-panel [slot="detail"], deck-stat [slot="detail"],
+deck-flow-step [slot="detail"], deck-timeline-item [slot="detail"] { display: none; }
+html:not(.deck-hydrated) deck-slide {
+  padding: 56px 24px;
+  border-bottom: 1px solid #e0ddd8;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+html:not(.deck-hydrated) deck-slide h1,
+html:not(.deck-hydrated) deck-slide h2 { font-family: 'DM Serif Display', Georgia, serif; margin-bottom: 12px; }
+html:not(.deck-hydrated) deck-card,
+html:not(.deck-hydrated) deck-callout,
+html:not(.deck-hydrated) deck-panel { margin: 12px 0; padding: 12px; border: 1px solid #e0ddd8; border-radius: 8px; }
+
 /* ───── 2. Tokens (defaults) ─────
    The :root block below carries the default token values (mapofag-equivalent)
    so a deck renders sensibly even without a theme file loaded. Active themes
@@ -908,7 +948,24 @@ body.no-hover .deck-hover-idx { display: none !important; }
   margin: 0;
 }
 
-/* Canvas outline (?dev URL flag or settings-panel toggle) */
+/* Canvas outline (?dev URL flag or settings-panel toggle)
+   Draws the canonical 1040×720 PDF/canvas area on each slide as an
+   overlay box so authors can see where the print/export boundary sits.
+   Implemented as a pointer-events:none pseudo-element so toggling it
+   doesn't reflow content. Also outlines any deck-raw containers that
+   declare a canvas-scale fit so their bounds are visible. */
+body.canvas-outline .slide::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--width-canvas);
+  height: var(--canvas-h);
+  transform: translate(-50%, -50%);
+  outline: 1px dashed var(--info);
+  outline-offset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
 body.canvas-outline .deck-raw[data-fit="contain"],
 body.canvas-outline .deck-raw[data-fit="flex"] {
   outline: 1px dashed var(--info);

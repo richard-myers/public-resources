@@ -317,13 +317,18 @@
     });
     row('Theme', themeSel);
 
-    // Base font size
+    // Base font size — must drive both --font-base (consumed by body)
+    // and the root font-size (so every `rem` unit scales too).
     const sizeInp = el('input', { type: 'number', min: '12', max: '24', step: '1' });
     sizeInp.value = '16';
     sizeInp.style.width = '60px';
-    sizeInp.addEventListener('change', () => {
-      document.documentElement.style.setProperty('--font-base', sizeInp.value + 'px');
-    });
+    const applyFontSize = () => {
+      const v = sizeInp.value;
+      document.documentElement.style.setProperty('--font-base', v + 'px');
+      document.documentElement.style.fontSize = v + 'px';
+    };
+    sizeInp.addEventListener('input', applyFontSize);
+    sizeInp.addEventListener('change', applyFontSize);
     row('Base font (px)', sizeInp);
 
     if (cfg.appendixToggle) {
@@ -476,6 +481,7 @@
   /* ───────── Init ───────── */
   function init() {
     const cfg = readConfig();
+    document.documentElement.classList.add('deck-hydrated');
     expand();                       // run all registered element expanders
     numberSlides();
     buildNav(cfg);
