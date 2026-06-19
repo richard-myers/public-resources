@@ -1,4 +1,4 @@
-/* claude-utils@4d8eaba (v1.1.2) */
+/* claude-utils@b12c1e3 (v1.1.3) */
 /* === deck.js === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.js — slide-deck library v1 runtime
@@ -88,15 +88,33 @@
   }
 
   /* ───────── Nav generation ───────── */
+  // cfg.nav controls which slides surface in the top bar:
+  //   "auto" (default) — every slide when total ≤ 5; chapters only when > 5
+  //                      (variant="chapter" + the title slide + variant="discuss").
+  //   "chapters"        — force chapters-only regardless of count.
+  //   "all"             — every slide (legacy behaviour).
+  //   per-slide opt-out — <deck-slide nav-hide> is always skipped.
   function buildNav(cfg) {
     if ($('.deck-nav')) return;     // user has hand-authored a nav; respect it
+    const visible = $$('.slide').filter(s => s.dataset.status !== 'hidden');
+    const mode = (cfg.nav === 'all' || cfg.nav === 'chapters' || cfg.nav === 'auto')
+      ? cfg.nav
+      : 'auto';
+    const effective = mode === 'all'
+      ? 'all'
+      : (mode === 'chapters' ? 'chapters' : (visible.length <= 5 ? 'all' : 'chapters'));
+    const isChapter = s => {
+      const v = s.dataset.variant;
+      return v === 'chapter' || v === 'title' || v === 'discuss';
+    };
     const nav = el('nav', { class: 'deck-nav' });
     const brand = el('div', { class: 'deck-nav-brand' }, cfg.brand || document.title || 'Slides');
     const center = el('div', { class: 'deck-nav-center' });
-    $$('.slide').forEach(slide => {
+    visible.forEach(slide => {
       const id = slide.id;
       if (!id) return;
-      if (slide.dataset.status === 'hidden') return;
+      if (slide.hasAttribute('nav-hide')) return;
+      if (effective === 'chapters' && !isChapter(slide)) return;
       const label = slide.dataset.navLabel
         || slide.querySelector('h2')?.textContent?.trim()
         || slide.querySelector('h1')?.textContent?.trim()
@@ -481,13 +499,13 @@
       brand: c?.getAttribute('brand'),
       modes: (c?.getAttribute('modes') || '').split(',').map(s => s.trim()).filter(Boolean),
       appendixToggle: c?.hasAttribute('appendix-toggle'),
-      nav: c?.getAttribute('nav') || 'default',
+      nav: c?.getAttribute('nav') || 'auto',
       pdfBranding: c?.getAttribute('pdf-branding') || 'default',
       printLayout: c?.getAttribute('print-layout'),
     };
     document.documentElement.dataset.theme = cfg.theme;
     if (cfg.printLayout) document.body.dataset.printLayout = cfg.printLayout;
-    if (cfg.nav && cfg.nav !== 'default') document.body.dataset.nav = cfg.nav;
+    if (cfg.nav && cfg.nav !== 'auto') document.body.dataset.nav = cfg.nav;
     if (c) c.remove();
     return cfg;
   }
@@ -888,6 +906,22 @@
        on `> strong:first-child`.
      • For the 3-col feature table (`.compare-table`), use a plain
        <table class="compare-table">; not produced by this element.
+
+   Pills inside `.compare-table` cells:
+     The cell-pill primitive is <deck-mark> — drop one into any cell
+     where the legacy form used `class="pro|con|neutral"`:
+
+       <table class="compare-table">
+         <tr>
+           <td>Latency</td>
+           <td><deck-mark tone="success">Low</deck-mark></td>
+           <td><deck-mark tone="danger">High</deck-mark></td>
+         </tr>
+       </table>
+
+     Left/centre alignment stays as a plain `style="text-align:…"` on
+     the <td>; no compare-cell variant exists for this. Tones are the
+     canonical six.
    ────────────────────────────────────────────────────────────────────── */
 
 (function () {
@@ -939,8 +973,14 @@
      modes         = comma-separated list of audience modes
      appendix-toggle = if present, settings panel exposes the appendix
                        show/hide toggle
-     nav           = default | narrative
-                     → written to <body data-nav="…"> when non-default
+     nav           = auto | chapters | all
+                     → controls top-bar density. `auto` (default): all
+                       slides when total ≤ 5, chapters only (variant=
+                       "chapter" + the title slide + variant="discuss")
+                       when > 5. `chapters`: force chapters-only regardless
+                       of count. `all`: legacy — every slide on the bar.
+                       Per-slide opt-out via <deck-slide nav-hide>.
+                       Written to <body data-nav="…"> when non-auto.
      pdf-branding  = default | …
      print-layout  = landscape | portrait-annotated | portrait-2up
                      → written to <body data-print-layout="…">
@@ -962,7 +1002,7 @@
     if (theme) document.documentElement.dataset.theme = theme;
 
     const nav = el.getAttribute('nav');
-    if (nav && nav !== 'default') document.body.dataset.nav = nav;
+    if (nav && nav !== 'auto') document.body.dataset.nav = nav;
 
     const printLayout = el.getAttribute('print-layout');
     if (printLayout) document.body.dataset.printLayout = printLayout;
@@ -1572,7 +1612,7 @@
 
 /* === deck-slide.js === */
 /* @element
-{"elements":[{"tag":"deck-slide","attrs":["id","variant","appendix","status","data-nav-label"],"summary":"Slide host; auto-wraps content in .slide-content"}]}
+{"elements":[{"tag":"deck-slide","attrs":["id","variant","appendix","status","data-nav-label","nav-hide"],"summary":"Slide host; auto-wraps content in .slide-content"}]}
 */
 
 /* ──────────────────────────────────────────────────────────────────────
@@ -1595,6 +1635,10 @@
                 → data-appendix (numberSlides() uses A-prefix)
      status   = draft | hidden
                 → data-status (CSS hides drafts unless body.show-drafts)
+     nav-hide = boolean flag — slide is omitted from the auto-built top nav
+                (still navigable via keyboard / direct hash). Useful for
+                supporting "appendix-style" content slides that shouldn't
+                clutter the chapter rail.
 
    Behaviour:
      • Host gets class "slide" so numberSlides / buildNav / observer

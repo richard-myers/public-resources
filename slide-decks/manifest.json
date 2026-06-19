@@ -8,12 +8,25 @@
     "docs": {
         "components": "slide-decks/components.md"
     },
-    "latest": "1.1.2",
+    "latest": "1.1.3",
     "current": {
         "css": "slide-decks/1/deck.css",
         "js": "slide-decks/1/deck.js"
     },
     "versions": [
+        {
+            "version": "1.1.3",
+            "released": "2026-06-19",
+            "notes": "`<deck-stat>` border now follows `--accent-color` (falling back to. `--border`), so `tone=\u2026` fully tints the tile rather than only the value text. Retires the per-tile inline border hack from the architectural-approaches migration. `<deck-slide nav-hide>` per-slide opt-out: slide is omitted from the. auto-built top rail (still navigable via keyboard / direct hash). `<deck-config nav=\"auto|chapters|all\">`. `auto` (the new default). shows every slide on the top bar when total \u2264 5; once a deck is longer than 5 slides it switches to chapters-only (slides with `variant=\"chapter\"`, plus the title slide and any `variant=\"discuss\"`). `chapters` forces chapters-only regardless of count; `all` keeps the pre-1.1.3 every-slide behaviour. The prior `nav=\"default\"` is effectively `nav=\"auto\"`. `<deck-mark>` documented as the cell-pill primitive for plain. `<table class=\"compare-table\">` 3-col comparisons (README + the `deck-compare.js` docstring carry the recipe; no new element). New `decks/templates/starter.html` (minimal) and. `decks/templates/kitchen-sink.html` (9-slide reference) \u2014 the kitchen-sink doubles as the regression surface for all four library changes above.",
+            "paths": {
+                "css": "slide-decks/1.1.3/deck.css",
+                "js": "slide-decks/1.1.3/deck.js"
+            },
+            "floats": [
+                "1.1",
+                "1"
+            ]
+        },
         {
             "version": "1.1.2",
             "released": "2026-06-19",
@@ -22,10 +35,7 @@
                 "css": "slide-decks/1.1.2/deck.css",
                 "js": "slide-decks/1.1.2/deck.js"
             },
-            "floats": [
-                "1.1",
-                "1"
-            ]
+            "floats": []
         },
         {
             "version": "1.1.1",
@@ -291,7 +301,8 @@
                 "variant",
                 "appendix",
                 "status",
-                "data-nav-label"
+                "data-nav-label",
+                "nav-hide"
             ],
             "summary": "Slide host; auto-wraps content in .slide-content",
             "source": "deck-slide.js"

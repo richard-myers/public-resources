@@ -1,4 +1,4 @@
-/* claude-utils@4d8eaba (v1.1.2) */
+/* claude-utils@b12c1e3 (v1.1.3) */
 /* ──────────────────────────────────────────────────────────────────────
    deck.css — slide-deck library v1
    Source: extracted from 2026-05-20-fm8-the-plan.html (canonical) and
@@ -490,7 +490,7 @@ body.no-hover .deck-hover-idx { display: none !important; }
   border-radius: 12px;
   padding: 20px;
   text-align: center;
-  border: 2px solid var(--border);
+  border: 2px solid var(--accent-color, var(--border));
   background: var(--bg-card);
   min-height: 96px;
   display: flex; flex-direction: column; justify-content: center;
