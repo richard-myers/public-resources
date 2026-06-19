@@ -1,4 +1,4 @@
-/* claude-utils@b12c1e3 (v1.1.3) */
+/* claude-utils@881f094 (v1.1.4) */
 /* === deck.js === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.js — slide-deck library v1 runtime
@@ -1726,8 +1726,11 @@
 
    Attributes:
      deck-stat-grid
-       cols = 2 | 3 | 4 | 5  →  data-cols (defaults to 3 if absent
-                                and grid template not otherwise set)
+       cols = 2 | 3 | 4 | 5 | 6  →  data-cols (defaults to 3 if absent
+                                and grid template not otherwise set;
+                                6 is the readable max at the 1040 canvas
+                                width — values like "1.2M" still fit
+                                but 7+ start to clip)
      deck-stat
        tone = success | info | highlight | warning | muted | danger
               → sets --accent-color so the stat value renders in tone

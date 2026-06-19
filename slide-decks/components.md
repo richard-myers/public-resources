@@ -56,7 +56,7 @@ the HTML may add SRI when they do.
 | `<deck-resolved-list>` | — | List of closed-out items |
 | `<deck-resolved-item>` | — | Resolved entry; `<deck-resolved-icon>` + body |
 | `<deck-section-emphasis>` | `label` | Bordered emphasis block with corner tab |
-| `<deck-slide>` | `id`, `variant`, `appendix`, `status`, `data-nav-label` | Slide host; auto-wraps content in .slide-content |
+| `<deck-slide>` | `id`, `variant`, `appendix`, `status`, `data-nav-label`, `nav-hide` | Slide host; auto-wraps content in .slide-content |
 | `<deck-stat-grid>` | `cols` | Grid wrapper; lays out `<deck-stat>` or any children |
 | `<deck-stat>` | `tone` | Big-number cell; `<deck-stat-value>` + `<deck-stat-label>` |
 | `<deck-step-row>` | `num`, `tone` | Numbered tab + body card |
