@@ -7,9 +7,7 @@
   "slideDeck": {
     "description": "Slide-deck library — dependency-free runtime + CSS that renders <deck-*> tags into navigable, hoverable, printable HTML decks.",
     "docs": {
-      "components": "slide-decks/components.md",
-      "componentsSourceOfTruth": "https://github.com/richard-myers/claude-utils/blob/main/library/slide-deck/README.md",
-      "runMd": "https://github.com/richard-myers/claude-utils/blob/main/library/slide-deck/RUN.md"
+      "components": "slide-decks/components.md"
     },
     "latest": "1.1.1",
     "current": {

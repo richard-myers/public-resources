@@ -1,9 +1,7 @@
 # Slide-deck library — component reference
 
-Companion reference for the slide-deck library hosted on jsDelivr. The
-source of truth lives at
-`github.com/richard-myers/claude-utils/blob/main/library/slide-deck/README.md`
-— this file is the subset a content-generation tool needs to know what
+Companion reference for the slide-deck library hosted on jsDelivr.
+This file is the subset a content-generation tool needs to know what
 elements exist and how to use them.
 
 ## How to include the runtime
@@ -27,8 +25,7 @@ SRI note: the floating URLs above intentionally ship without
 `integrity`/`crossorigin` because the hash would invalidate on every
 patch release and break the auto-update behaviour those tags are for.
 Decks pinning to an exact version (`/slide-decks/1.1.1/…`) or shipping
-the runtime inlined into the HTML may add SRI when they do — see the
-library README for the rationale.
+the runtime inlined into the HTML may add SRI when they do.
 
 ## Element cheat-sheet
 
