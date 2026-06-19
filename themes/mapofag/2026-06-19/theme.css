@@ -1,0 +1,73 @@
+/* ──────────────────────────────────────────────────────────────────────
+   mapofag — slide-deck theme
+   Active when <html data-theme="mapofag">. The ':root' block in deck.css
+   already carries the mapofag values as the no-theme default, so this
+   file is the explicit version (loaded when other themes might also be
+   present in the page and the deck wants to pin to mapofag).
+   ────────────────────────────────────────────────────────────────────── */
+[data-theme="mapofag"] {
+  --bg: #faf8f5; --bg-slide: #ffffff; --bg-card: #ffffff; --bg-alt: #f5f3f0;
+
+  --brand-primary: #547937;
+    --brand-primary-light: rgba(84,121,55,0.10);
+    --brand-primary-border: rgba(84,121,55,0.25);
+  --brand-secondary: #0077BD;
+    --brand-secondary-light: rgba(0,119,189,0.10);
+    --brand-secondary-border: rgba(0,119,189,0.25);
+  --brand-3: #F37421;
+    --brand-3-light: rgba(243,116,33,0.10);
+    --brand-3-border: rgba(243,116,33,0.25);
+  --brand-4: #F6A73F;
+    --brand-4-light: rgba(246,167,63,0.10);
+    --brand-4-border: rgba(246,167,63,0.25);
+  --brand-5: #67BBE9;
+    --brand-5-light: rgba(103,187,233,0.10);
+    --brand-5-border: rgba(103,187,233,0.25);
+  --brand-6: #c0392b;
+    --brand-6-light: rgba(192,57,43,0.08);
+    --brand-6-border: rgba(192,57,43,0.20);
+
+  --success: var(--brand-primary);
+    --success-light: var(--brand-primary-light);
+    --success-border: var(--brand-primary-border);
+  --info: var(--brand-secondary);
+    --info-light: var(--brand-secondary-light);
+    --info-border: var(--brand-secondary-border);
+  --highlight: var(--brand-3);
+    --highlight-light: var(--brand-3-light);
+    --highlight-border: var(--brand-3-border);
+  --warning: var(--brand-4);
+    --warning-light: var(--brand-4-light);
+    --warning-border: var(--brand-4-border);
+  --muted-accent: var(--brand-5);
+    --muted-accent-light: var(--brand-5-light);
+    --muted-accent-border: var(--brand-5-border);
+  --danger: var(--brand-6);
+    --danger-light: var(--brand-6-light);
+    --danger-border: var(--brand-6-border);
+
+  --green: var(--brand-primary); --green-light: var(--brand-primary-light); --green-border: var(--brand-primary-border);
+  --blue:  var(--brand-secondary); --blue-light: var(--brand-secondary-light); --blue-border: var(--brand-secondary-border);
+  --orange: var(--brand-3); --orange-light: var(--brand-3-light); --orange-border: var(--brand-3-border);
+  --amber: var(--brand-4); --amber-light: var(--brand-4-light); --amber-border: var(--brand-4-border);
+  --sky: var(--brand-5); --sky-light: var(--brand-5-light); --sky-border: var(--brand-5-border);
+  --red: var(--brand-6); --red-light: var(--brand-6-light); --red-border: var(--brand-6-border);
+
+  --text: #32373c; --text-secondary: #5a5f63; --text-muted: #8a8f93;
+  --border: #e0ddd8; --border-light: #ebe9e4;
+
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-base: 16px;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --width-content: 1200px;
+  --width-canvas: 1040px;
+  --canvas-h: 720px;
+
+  --card-border-style: full;
+  --nav-variant: default;
+  --title-variant: default;
+}
