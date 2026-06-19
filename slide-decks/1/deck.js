@@ -1,3 +1,4 @@
+/* claude-utils@4d8eaba (v1.1.2) */
 /* === deck.js === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.js — slide-deck library v1 runtime
@@ -207,19 +208,40 @@
       const hostList = [];
       // Treat each container with a detail slot OR explicit data-hover as a host.
       const candidates = $$('[data-hover], .deck-hoverable', slide);
-      // Also auto-promote elements that contain a child `.hd` or `[slot="detail"]`
+      // Also auto-promote elements that contain a child `.hd` or `[slot="detail"]`.
+      // Climb to the nearest semantic host rather than blindly using
+      // child.parentElement — expanders that wrap body content (e.g.
+      // deck-step-row → .deck-step-body) would otherwise land the index
+      // sup on the inner wrapper instead of the visible card/row.
+      const HOST_SELECTOR = [
+        // canonical hosts
+        '.deck-card', '.deck-callout', '.deck-panel',
+        '.deck-stat', '.deck-step-row',
+        '.deck-timeline-item', '.deck-flow-step',
+        '.deck-resolved-item', '.deck-slide-item',
+        // legacy aliases
+        '.oc', '.dg', '.co', '.callout', '.card',
+        '.stat-box', '.fs', '.flow-step',
+        '.step-row', '.timeline-item', '.resolved-item',
+      ].join(', ');
+      const detailByHost = new Map();
       $$('.hd, [slot="detail"]', slide).forEach(child => {
-        // Climb to a sensible host: nearest .deck-card, .oc, .dg, .deck-stat, .stat-box, etc.
-        const host = child.parentElement;
-        if (host && !candidates.includes(host)) {
+        const host = child.closest(HOST_SELECTOR) || child.parentElement;
+        if (!host) return;
+        if (!candidates.includes(host)) {
           host.classList.add('deck-hoverable');
           candidates.push(host);
         }
+        // Remember the detail we found so the loop below can use it
+        // directly — necessary when expanders nest the detail inside a
+        // body wrapper (deck-step-row, deck-pros-cons) so :scope > misses.
+        if (!detailByHost.has(host)) detailByHost.set(host, child);
       });
 
       let i = 0;
       candidates.forEach(host => {
-        const detail = host.querySelector(':scope > .hd, :scope > [slot="detail"]');
+        const detail = detailByHost.get(host)
+          || host.querySelector(':scope > .hd, :scope > [slot="detail"]');
         if (!detail) return;
         i += 1;
         const idx = i;
@@ -521,6 +543,10 @@
 })();
 
 /* === deck-badge.js === */
+/* @element
+{"elements":[{"tag":"deck-badge","attrs":["variant"],"summary":"Pill label"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-badge.js — pill label
 
@@ -559,6 +585,10 @@
 })();
 
 /* === deck-bar-row.js === */
+/* @element
+{"elements":[{"tag":"deck-bar-row","attrs":["label","value","display","tone"],"summary":"Horizontal bar with animated fill"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-bar-row.js — labelled horizontal bar with animated fill
 
@@ -634,6 +664,10 @@
 })();
 
 /* === deck-callout.js === */
+/* @element
+{"elements":[{"tag":"deck-callout","attrs":["variant"],"summary":"Left-border tinted block"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-callout.js — left-border tinted block
 
@@ -643,7 +677,9 @@
      </deck-callout>
 
    Attributes (all optional):
-     variant = info | success | warning | danger | note
+     variant = success | info | highlight | warning | muted | danger
+               (canonical six). `note` retained as a legacy alias of
+               `highlight` for decks authored against earlier versions.
                → data-variant (default: brand-primary tint)
 
    Behaviour:
@@ -656,7 +692,8 @@
   'use strict';
 
   const VARIANTS = new Set([
-    'info', 'success', 'warning', 'danger', 'note',
+    'success', 'info', 'highlight', 'warning', 'muted', 'danger',
+    'note',  // legacy alias of highlight
   ]);
 
   function expand(el) {
@@ -676,6 +713,10 @@
 })();
 
 /* === deck-card.js === */
+/* @element
+{"elements":[{"tag":"deck-card","attrs":["accent","border","tone"],"summary":"Bordered card; <deck-card-title> child for header"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-card.js — canonical container element
 
@@ -740,6 +781,10 @@
 })();
 
 /* === deck-chart.js === */
+/* @element
+{"elements":[{"tag":"deck-chart","attrs":["type","height"],"summary":"Chart.js wrapper; JSON config as child <script>"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-chart.js — Chart.js wrapper
 
@@ -808,6 +853,14 @@
 })();
 
 /* === deck-compare.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-compare","attrs":[],"summary":"2-col good/bad grid"},
+  {"tag":"deck-compare-good","attrs":[],"summary":"Compare slot (good column)"},
+  {"tag":"deck-compare-bad","attrs":[],"summary":"Compare slot (bad column)"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-compare.js — 2-col good/bad comparison cards
 
@@ -862,6 +915,10 @@
 })();
 
 /* === deck-config.js === */
+/* @element
+{"elements":[{"tag":"deck-config","attrs":["theme","nav","print-layout","appendix-toggle","modes","brand","pdf-branding"],"summary":"Writes theme + flags onto <html>/<body>"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-config.js — global deck configuration
 
@@ -923,6 +980,13 @@
 })();
 
 /* === deck-flow.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-flow","attrs":["direction","arrows"],"summary":"Step flow; auto-inserts arrows between steps"},
+  {"tag":"deck-flow-step","attrs":["tone"],"summary":"Tinted pill; <deck-flow-sub> child for caption"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-flow.js — horizontal/vertical step flow with auto-inserted arrows
 
@@ -1008,6 +1072,10 @@
 })();
 
 /* === deck-gauge.js === */
+/* @element
+{"elements":[{"tag":"deck-gauge","attrs":["value","display","label","tone"],"summary":"Conic gauge ring"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-gauge.js — conic gauge ring with centre value + label
 
@@ -1082,6 +1150,10 @@
 })();
 
 /* === deck-mark.js === */
+/* @element
+{"elements":[{"tag":"deck-mark","attrs":["tone","tip"],"summary":"Inline tinted highlight with optional tooltip"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-mark.js — inline tinted highlight with optional tooltip
 
@@ -1091,7 +1163,7 @@
      </deck-mark>, not the product.
 
    Attributes:
-     tone = highlight (default) | success | info | warning | danger
+     tone = highlight (default) | success | info | warning | muted | danger
             → data-tone (drives background + text colour)
      tip  = string (optional)
             → data-tip (renders as :hover::after tooltip)
@@ -1103,7 +1175,9 @@
 (function () {
   'use strict';
 
-  const TONES = new Set(['highlight', 'success', 'info', 'warning', 'danger']);
+  const TONES = new Set([
+    'highlight', 'success', 'info', 'warning', 'muted', 'danger',
+  ]);
 
   function expand(el) {
     el.classList.add('deck-mark');
@@ -1125,6 +1199,10 @@
 })();
 
 /* === deck-panel.js === */
+/* @element
+{"elements":[{"tag":"deck-panel","attrs":[],"summary":"Neutral wrapper for embedded diagrams; <deck-panel-title> child"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-panel.js — wrapper for an embedded visualisation / diagram
 
@@ -1165,6 +1243,10 @@
 })();
 
 /* === deck-prompt.js === */
+/* @element
+{"elements":[{"tag":"deck-prompt","attrs":[],"summary":"Centred italic discussion prompt"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-prompt.js — centred italic discussion prompt
 
@@ -1195,6 +1277,14 @@
 })();
 
 /* === deck-pros-cons.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-pros-cons","attrs":[],"summary":"Strengths/weaknesses grid"},
+  {"tag":"deck-pros","attrs":["label"],"summary":"Pros column; <li>s auto-classed"},
+  {"tag":"deck-cons","attrs":["label"],"summary":"Cons column; <li>s auto-classed"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-pros-cons.js — strengths/weaknesses column pair
 
@@ -1273,6 +1363,10 @@
 })();
 
 /* === deck-pullquote.js === */
+/* @element
+{"elements":[{"tag":"deck-pullquote","attrs":[],"summary":"Centred display quote; <deck-pullquote-attribution> child"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-pullquote.js — large centred display quote
 
@@ -1312,6 +1406,10 @@
 })();
 
 /* === deck-raw.js === */
+/* @element
+{"elements":[{"tag":"deck-raw","attrs":["fit"],"summary":"Fixed-canvas wrapper for hand-authored HTML/SVG"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-raw.js — fixed-canvas wrapper for hand-authored content
 
@@ -1329,11 +1427,15 @@
      </deck-raw>
 
    Attributes:
-     fit = contain | flex | bleed   (defaults to "contain")
+     fit = contain | flex | bleed | inline   (defaults to "contain")
            → data-fit (CSS keys §13 on this)
              contain: locked 1040×720 box, overflow hidden
              flex:    1040 wide, ≥720 tall, overflow visible
              bleed:   100% width, edge-to-edge
+             inline:  100% of the containing column, intrinsic height
+                      (added session 6; used for bespoke mockups inside
+                      a grid column — needs container width, not canvas
+                      sizing)
 
    Behaviour:
      • Host gets class "deck-raw" and data-fit attribute.
@@ -1361,6 +1463,13 @@
 })();
 
 /* === deck-resolved.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-resolved-list","attrs":[],"summary":"List of closed-out items"},
+  {"tag":"deck-resolved-item","attrs":[],"summary":"Resolved entry; <deck-resolved-icon> + body"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-resolved.js — list of resolved/closed-out items with side accent
 
@@ -1415,6 +1524,10 @@
 })();
 
 /* === deck-section-emphasis.js === */
+/* @element
+{"elements":[{"tag":"deck-section-emphasis","attrs":["label"],"summary":"Bordered emphasis block with corner tab"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-section-emphasis.js — the `.dp` block
 
@@ -1458,6 +1571,10 @@
 })();
 
 /* === deck-slide.js === */
+/* @element
+{"elements":[{"tag":"deck-slide","attrs":["id","variant","appendix","status","data-nav-label"],"summary":"Slide host; auto-wraps content in .slide-content"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-slide.js — slide host element
 
@@ -1539,6 +1656,13 @@
 })();
 
 /* === deck-stat-grid.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-stat-grid","attrs":["cols"],"summary":"Grid wrapper; lays out <deck-stat> or any children"},
+  {"tag":"deck-stat","attrs":["tone"],"summary":"Big-number cell; <deck-stat-value> + <deck-stat-label>"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-stat-grid.js — grid wrapper + nested deck-stat boxes
 
@@ -1615,6 +1739,10 @@
 })();
 
 /* === deck-step-row.js === */
+/* @element
+{"elements":[{"tag":"deck-step-row","attrs":["num","tone"],"summary":"Numbered tab + body card"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-step-row.js — numbered step tab + body card
 
@@ -1681,6 +1809,10 @@
 })();
 
 /* === deck-tag.js === */
+/* @element
+{"elements":[{"tag":"deck-tag","attrs":["tone"],"summary":"Smaller pill, reads as data"}]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-tag.js — smaller pill, reads as data
 
@@ -1719,6 +1851,13 @@
 })();
 
 /* === deck-timeline.js === */
+/* @element
+{"elements":[
+  {"tag":"deck-timeline","attrs":[],"summary":"Vertical timeline container"},
+  {"tag":"deck-timeline-item","attrs":["status"],"summary":"Timeline entry; <deck-timeline-date> + h4 + body"}
+]}
+*/
+
 /* ──────────────────────────────────────────────────────────────────────
    deck-timeline.js — vertical timeline + nested timeline-item
 

@@ -1,79 +1,347 @@
 {
-  "resource": "slide-deck",
-  "schemaVersion": 1,
-  "generated": "2026-06-19",
-  "description": "Slide-deck library — dependency-free runtime + CSS that renders <deck-*> tags into navigable, hoverable, printable HTML decks.",
-  "baseUrl": "https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main",
-  "rawBaseUrl": "https://raw.githubusercontent.com/richard-myers/public-resources/main",
-  "docs": {
-    "components": "slide-decks/components.md"
-  },
-  "latest": "1.1.1",
-  "current": {
-    "css": "slide-decks/1/deck.css",
-    "js":  "slide-decks/1/deck.js"
-  },
-  "versions": [
-    {
-      "version": "1.1.1",
-      "released": "2026-06-19",
-      "notes": "Pre-hydrate fallback CSS, settings-panel font-size now scales rem units, canvas-outline toggle draws 1040×720 per slide.",
-      "paths": {
-        "css": "slide-decks/1.1.1/deck.css",
-        "js":  "slide-decks/1.1.1/deck.js"
-      },
-      "floats": ["1.1", "1"]
+    "resource": "slide-deck",
+    "schemaVersion": 1,
+    "generated": "2026-06-19",
+    "description": "Slide-deck library \u2014 dependency-free runtime + CSS that renders <deck-*> tags into navigable, hoverable, printable HTML decks.",
+    "baseUrl": "https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main",
+    "rawBaseUrl": "https://raw.githubusercontent.com/richard-myers/public-resources/main",
+    "docs": {
+        "components": "slide-decks/components.md"
     },
-    {
-      "version": "1.1.0",
-      "released": "2026-06-19",
-      "notes": "Theme split into independent stylesheets under /themes/<name>/theme.css.",
-      "paths": {
-        "css": "slide-decks/1.1.0/deck.css",
-        "js":  "slide-decks/1.1.0/deck.js"
-      },
-      "floats": []
+    "latest": "1.1.2",
+    "current": {
+        "css": "slide-decks/1/deck.css",
+        "js": "slide-decks/1/deck.js"
     },
-    {
-      "version": "1.0.0",
-      "released": "2026-06-19",
-      "notes": "Phase 1 ship — pre-theme-split monolithic deck.css. Frozen for any deck pinned to this exact version.",
-      "paths": {
-        "css": "slide-decks/1.0.0/deck.css",
-        "js":  "slide-decks/1.0.0/deck.js"
-      },
-      "floats": []
-    }
-  ],
-  "floatingPaths": {
-    "major": "slide-decks/1/",
-    "minor": "slide-decks/1.1/"
-  },
-  "sri": {
-    "policy": "floating-urls-omit-sri",
-    "rationale": "Hashes invalidate on every patch; pinned/inlined decks may add SRI when ready."
-  },
-  "themes": [
-    {
-      "name": "mapofag",
-      "latest": "themes/mapofag/latest/theme.css",
-      "snapshots": [
-        { "date": "2026-06-19", "path": "themes/mapofag/2026-06-19/theme.css" }
-      ]
+    "versions": [
+        {
+            "version": "1.1.2",
+            "released": "2026-06-19",
+            "notes": "`bin/deck-build dist` now generates `manifest.json` and embeds a. `claude-utils@<sha>` stamp at the top of `deck.{css,js}`. `bin/deck-build docs` regenerates `components.md` and the README. cheat-sheet from `@element` headers in `elements/*.js` \u2014 no more hand-editing the table. Frozen-pin guard refuses to overwrite a published exact-pin path. with non-identical bytes; monotonicity check refuses VERSION lower than any published; intra-day theme collision check refuses to rewrite a same-day theme snapshot with different bytes. All three bypassed by `--force-republish`. Pre-hydrate fallback CSS extended to cover child element hosts. (deck-card-title, deck-flow-sub, deck-stat-value, etc.). Tone vocabulary reconciled across `deck-callout`, `deck-mark`,. `deck-badge`, `deck-tag`: every tone-accepting element now accepts the canonical six (`success | info | highlight | warning | muted | danger`); `deck-callout`'s `note` retained as a legacy alias. Hover host-resolution: `setupHover()` now walks up via `.closest()`. against an explicit host-class list, so the indicator lands on the outer host (e.g. `deck-step-row`) rather than the inner body wrapper.",
+            "paths": {
+                "css": "slide-decks/1.1.2/deck.css",
+                "js": "slide-decks/1.1.2/deck.js"
+            },
+            "floats": [
+                "1.1",
+                "1"
+            ]
+        },
+        {
+            "version": "1.1.1",
+            "released": "2026-06-19",
+            "notes": "Pre-hydrate fallback CSS (`html:not(.deck-hydrated)` rules) so a. JS-disabled load reads as a vertical prose document. Settings-panel base-font handler now writes. `documentElement.style.fontSize`, so every rem-based size moves. Canvas-outline toggle draws a dashed 1040\u00d7720 box on every slide,. not only on `<deck-raw>` blocks. Published `manifest.json` + `components.md` in `public-resources`.",
+            "paths": {
+                "css": "slide-decks/1.1.1/deck.css",
+                "js": "slide-decks/1.1.1/deck.js"
+            },
+            "floats": []
+        },
+        {
+            "version": "1.1.0",
+            "released": "2026-06-19",
+            "notes": "Themes split into independent stylesheets under. `/themes/<name>/theme.css` (loaded as a separate `<link>` tag). `deck.css` keeps a mapofag-equivalent default `:root` block so a deck that omits the theme link still renders sensibly.",
+            "paths": {
+                "css": "slide-decks/1.1.0/deck.css",
+                "js": "slide-decks/1.1.0/deck.js"
+            },
+            "floats": []
+        },
+        {
+            "version": "1.0.0",
+            "released": "2026-06-19",
+            "notes": "Phase 1 ship \u2014 monolithic `deck.css` with all three themes in. `[data-theme]` blocks. Frozen for any deck pinned to this exact version.",
+            "paths": {
+                "css": "slide-decks/1.0.0/deck.css",
+                "js": "slide-decks/1.0.0/deck.js"
+            },
+            "floats": [
+                "1.0"
+            ]
+        }
+    ],
+    "floatingPaths": {
+        "major": "slide-decks/1/",
+        "minor": "slide-decks/1.1/"
     },
-    {
-      "name": "richard-myers",
-      "latest": "themes/richard-myers/latest/theme.css",
-      "snapshots": [
-        { "date": "2026-06-19", "path": "themes/richard-myers/2026-06-19/theme.css" }
-      ]
+    "sri": {
+        "policy": "floating-urls-omit-sri",
+        "rationale": "Hashes invalidate on every patch; pinned/inlined decks may add SRI when ready."
     },
-    {
-      "name": "richard-myers-dark",
-      "latest": "themes/richard-myers-dark/latest/theme.css",
-      "snapshots": [
-        { "date": "2026-06-19", "path": "themes/richard-myers-dark/2026-06-19/theme.css" }
-      ]
-    }
-  ]
+    "themes": [
+        {
+            "name": "mapofag",
+            "latest": "themes/mapofag/latest/theme.css",
+            "snapshots": [
+                {
+                    "date": "2026-06-19",
+                    "path": "themes/mapofag/2026-06-19/theme.css"
+                }
+            ]
+        },
+        {
+            "name": "richard-myers",
+            "latest": "themes/richard-myers/latest/theme.css",
+            "snapshots": [
+                {
+                    "date": "2026-06-19",
+                    "path": "themes/richard-myers/2026-06-19/theme.css"
+                }
+            ]
+        },
+        {
+            "name": "richard-myers-dark",
+            "latest": "themes/richard-myers-dark/latest/theme.css",
+            "snapshots": [
+                {
+                    "date": "2026-06-19",
+                    "path": "themes/richard-myers-dark/2026-06-19/theme.css"
+                }
+            ]
+        }
+    ],
+    "elements": [
+        {
+            "tag": "deck-badge",
+            "attrs": [
+                "variant"
+            ],
+            "summary": "Pill label",
+            "source": "deck-badge.js"
+        },
+        {
+            "tag": "deck-bar-row",
+            "attrs": [
+                "label",
+                "value",
+                "display",
+                "tone"
+            ],
+            "summary": "Horizontal bar with animated fill",
+            "source": "deck-bar-row.js"
+        },
+        {
+            "tag": "deck-callout",
+            "attrs": [
+                "variant"
+            ],
+            "summary": "Left-border tinted block",
+            "source": "deck-callout.js"
+        },
+        {
+            "tag": "deck-card",
+            "attrs": [
+                "accent",
+                "border",
+                "tone"
+            ],
+            "summary": "Bordered card; <deck-card-title> child for header",
+            "source": "deck-card.js"
+        },
+        {
+            "tag": "deck-chart",
+            "attrs": [
+                "type",
+                "height"
+            ],
+            "summary": "Chart.js wrapper; JSON config as child <script>",
+            "source": "deck-chart.js"
+        },
+        {
+            "tag": "deck-compare",
+            "attrs": [],
+            "summary": "2-col good/bad grid",
+            "source": "deck-compare.js"
+        },
+        {
+            "tag": "deck-compare-good",
+            "attrs": [],
+            "summary": "Compare slot (good column)",
+            "source": "deck-compare.js"
+        },
+        {
+            "tag": "deck-compare-bad",
+            "attrs": [],
+            "summary": "Compare slot (bad column)",
+            "source": "deck-compare.js"
+        },
+        {
+            "tag": "deck-config",
+            "attrs": [
+                "theme",
+                "nav",
+                "print-layout",
+                "appendix-toggle",
+                "modes",
+                "brand",
+                "pdf-branding"
+            ],
+            "summary": "Writes theme + flags onto <html>/<body>",
+            "source": "deck-config.js"
+        },
+        {
+            "tag": "deck-flow",
+            "attrs": [
+                "direction",
+                "arrows"
+            ],
+            "summary": "Step flow; auto-inserts arrows between steps",
+            "source": "deck-flow.js"
+        },
+        {
+            "tag": "deck-flow-step",
+            "attrs": [
+                "tone"
+            ],
+            "summary": "Tinted pill; <deck-flow-sub> child for caption",
+            "source": "deck-flow.js"
+        },
+        {
+            "tag": "deck-gauge",
+            "attrs": [
+                "value",
+                "display",
+                "label",
+                "tone"
+            ],
+            "summary": "Conic gauge ring",
+            "source": "deck-gauge.js"
+        },
+        {
+            "tag": "deck-mark",
+            "attrs": [
+                "tone",
+                "tip"
+            ],
+            "summary": "Inline tinted highlight with optional tooltip",
+            "source": "deck-mark.js"
+        },
+        {
+            "tag": "deck-panel",
+            "attrs": [],
+            "summary": "Neutral wrapper for embedded diagrams; <deck-panel-title> child",
+            "source": "deck-panel.js"
+        },
+        {
+            "tag": "deck-prompt",
+            "attrs": [],
+            "summary": "Centred italic discussion prompt",
+            "source": "deck-prompt.js"
+        },
+        {
+            "tag": "deck-pros-cons",
+            "attrs": [],
+            "summary": "Strengths/weaknesses grid",
+            "source": "deck-pros-cons.js"
+        },
+        {
+            "tag": "deck-pros",
+            "attrs": [
+                "label"
+            ],
+            "summary": "Pros column; <li>s auto-classed",
+            "source": "deck-pros-cons.js"
+        },
+        {
+            "tag": "deck-cons",
+            "attrs": [
+                "label"
+            ],
+            "summary": "Cons column; <li>s auto-classed",
+            "source": "deck-pros-cons.js"
+        },
+        {
+            "tag": "deck-pullquote",
+            "attrs": [],
+            "summary": "Centred display quote; <deck-pullquote-attribution> child",
+            "source": "deck-pullquote.js"
+        },
+        {
+            "tag": "deck-raw",
+            "attrs": [
+                "fit"
+            ],
+            "summary": "Fixed-canvas wrapper for hand-authored HTML/SVG",
+            "source": "deck-raw.js"
+        },
+        {
+            "tag": "deck-resolved-list",
+            "attrs": [],
+            "summary": "List of closed-out items",
+            "source": "deck-resolved.js"
+        },
+        {
+            "tag": "deck-resolved-item",
+            "attrs": [],
+            "summary": "Resolved entry; <deck-resolved-icon> + body",
+            "source": "deck-resolved.js"
+        },
+        {
+            "tag": "deck-section-emphasis",
+            "attrs": [
+                "label"
+            ],
+            "summary": "Bordered emphasis block with corner tab",
+            "source": "deck-section-emphasis.js"
+        },
+        {
+            "tag": "deck-slide",
+            "attrs": [
+                "id",
+                "variant",
+                "appendix",
+                "status",
+                "data-nav-label"
+            ],
+            "summary": "Slide host; auto-wraps content in .slide-content",
+            "source": "deck-slide.js"
+        },
+        {
+            "tag": "deck-stat-grid",
+            "attrs": [
+                "cols"
+            ],
+            "summary": "Grid wrapper; lays out <deck-stat> or any children",
+            "source": "deck-stat-grid.js"
+        },
+        {
+            "tag": "deck-stat",
+            "attrs": [
+                "tone"
+            ],
+            "summary": "Big-number cell; <deck-stat-value> + <deck-stat-label>",
+            "source": "deck-stat-grid.js"
+        },
+        {
+            "tag": "deck-step-row",
+            "attrs": [
+                "num",
+                "tone"
+            ],
+            "summary": "Numbered tab + body card",
+            "source": "deck-step-row.js"
+        },
+        {
+            "tag": "deck-tag",
+            "attrs": [
+                "tone"
+            ],
+            "summary": "Smaller pill, reads as data",
+            "source": "deck-tag.js"
+        },
+        {
+            "tag": "deck-timeline",
+            "attrs": [],
+            "summary": "Vertical timeline container",
+            "source": "deck-timeline.js"
+        },
+        {
+            "tag": "deck-timeline-item",
+            "attrs": [
+                "status"
+            ],
+            "summary": "Timeline entry; <deck-timeline-date> + h4 + body",
+            "source": "deck-timeline.js"
+        }
+    ]
 }
