@@ -1,4 +1,5 @@
-/* claude-utils@881f094 (v1.1.4) */
+/* claude-utils@dc2a230-dirty (v1.1.5) */
+/* === deck.css === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.css — slide-deck library v1
    Source: extracted from 2026-05-20-fm8-the-plan.html (canonical) and
@@ -1091,3 +1092,208 @@ body[data-print-layout="landscape"] {
 @media print {
   body[data-print-layout="portrait-annotated"] .deck-print-notes { display: block; }
 }
+
+/* === themes/mapofag/theme.css === */
+/* ──────────────────────────────────────────────────────────────────────
+   mapofag — slide-deck theme
+   Active when <html data-theme="mapofag">. The ':root' block in deck.css
+   already carries the mapofag values as the no-theme default, so this
+   file is the explicit version (loaded when other themes might also be
+   present in the page and the deck wants to pin to mapofag).
+   ────────────────────────────────────────────────────────────────────── */
+[data-theme="mapofag"] {
+  --bg: #faf8f5; --bg-slide: #ffffff; --bg-card: #ffffff; --bg-alt: #f5f3f0;
+
+  --brand-primary: #547937;
+    --brand-primary-light: rgba(84,121,55,0.10);
+    --brand-primary-border: rgba(84,121,55,0.25);
+  --brand-secondary: #0077BD;
+    --brand-secondary-light: rgba(0,119,189,0.10);
+    --brand-secondary-border: rgba(0,119,189,0.25);
+  --brand-3: #F37421;
+    --brand-3-light: rgba(243,116,33,0.10);
+    --brand-3-border: rgba(243,116,33,0.25);
+  --brand-4: #F6A73F;
+    --brand-4-light: rgba(246,167,63,0.10);
+    --brand-4-border: rgba(246,167,63,0.25);
+  --brand-5: #67BBE9;
+    --brand-5-light: rgba(103,187,233,0.10);
+    --brand-5-border: rgba(103,187,233,0.25);
+  --brand-6: #c0392b;
+    --brand-6-light: rgba(192,57,43,0.08);
+    --brand-6-border: rgba(192,57,43,0.20);
+
+  --success: var(--brand-primary);
+    --success-light: var(--brand-primary-light);
+    --success-border: var(--brand-primary-border);
+  --info: var(--brand-secondary);
+    --info-light: var(--brand-secondary-light);
+    --info-border: var(--brand-secondary-border);
+  --highlight: var(--brand-3);
+    --highlight-light: var(--brand-3-light);
+    --highlight-border: var(--brand-3-border);
+  --warning: var(--brand-4);
+    --warning-light: var(--brand-4-light);
+    --warning-border: var(--brand-4-border);
+  --muted-accent: var(--brand-5);
+    --muted-accent-light: var(--brand-5-light);
+    --muted-accent-border: var(--brand-5-border);
+  --danger: var(--brand-6);
+    --danger-light: var(--brand-6-light);
+    --danger-border: var(--brand-6-border);
+
+  --green: var(--brand-primary); --green-light: var(--brand-primary-light); --green-border: var(--brand-primary-border);
+  --blue:  var(--brand-secondary); --blue-light: var(--brand-secondary-light); --blue-border: var(--brand-secondary-border);
+  --orange: var(--brand-3); --orange-light: var(--brand-3-light); --orange-border: var(--brand-3-border);
+  --amber: var(--brand-4); --amber-light: var(--brand-4-light); --amber-border: var(--brand-4-border);
+  --sky: var(--brand-5); --sky-light: var(--brand-5-light); --sky-border: var(--brand-5-border);
+  --red: var(--brand-6); --red-light: var(--brand-6-light); --red-border: var(--brand-6-border);
+
+  --text: #32373c; --text-secondary: #5a5f63; --text-muted: #8a8f93;
+  --border: #e0ddd8; --border-light: #ebe9e4;
+
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-base: 16px;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --width-content: 1200px;
+  --width-canvas: 1040px;
+  --canvas-h: 720px;
+
+  --card-border-style: full;
+  --nav-variant: default;
+  --title-variant: default;
+}
+
+/* === themes/richard-myers-dark/theme.css === */
+/* ──────────────────────────────────────────────────────────────────────
+   richard-myers-dark — slide-deck theme (dark)
+   Active when <html data-theme="richard-myers-dark">.
+   ────────────────────────────────────────────────────────────────────── */
+[data-theme="richard-myers-dark"] {
+  --bg: #1A1612; --bg-alt: #221C16; --bg-slide: #1F1A14; --bg-card: #1F1A14;
+  --bg-accent: #2A221A;
+
+  --brand-primary: #E07535;
+    --brand-primary-light: rgba(224,117,53,0.14);
+    --brand-primary-border: rgba(224,117,53,0.35);
+  --brand-secondary: #1A5560;
+    --brand-secondary-light: rgba(26,85,96,0.20);
+    --brand-secondary-border: rgba(26,85,96,0.45);
+  --brand-3: #3D4670;
+    --brand-3-light: rgba(61,70,112,0.25);
+    --brand-3-border: rgba(61,70,112,0.55);
+  --brand-4: #F08C50;
+    --brand-4-light: rgba(240,140,80,0.14);
+    --brand-4-border: rgba(240,140,80,0.35);
+  --brand-5: #FAE4D2;
+    --brand-5-light: rgba(250,228,210,0.10);
+    --brand-5-border: rgba(250,228,210,0.30);
+  --brand-6: #F08C50;
+    --brand-6-light: rgba(240,140,80,0.10);
+    --brand-6-border: rgba(240,140,80,0.30);
+
+  --success: var(--brand-secondary); --success-light: var(--brand-secondary-light); --success-border: var(--brand-secondary-border);
+  --info: var(--brand-3); --info-light: var(--brand-3-light); --info-border: var(--brand-3-border);
+  --highlight: var(--brand-primary); --highlight-light: var(--brand-primary-light); --highlight-border: var(--brand-primary-border);
+  --warning: var(--brand-4); --warning-light: var(--brand-4-light); --warning-border: var(--brand-4-border);
+  --muted-accent: var(--brand-5); --muted-accent-light: var(--brand-5-light); --muted-accent-border: var(--brand-5-border);
+  --danger: var(--brand-4); --danger-light: var(--brand-4-light); --danger-border: var(--brand-4-border);
+
+  --green: var(--brand-secondary); --green-light: var(--brand-secondary-light); --green-border: var(--brand-secondary-border);
+  --blue: var(--brand-3); --blue-light: var(--brand-3-light); --blue-border: var(--brand-3-border);
+  --orange: var(--brand-primary); --orange-light: var(--brand-primary-light); --orange-border: var(--brand-primary-border);
+  --amber: var(--brand-4); --amber-light: var(--brand-4-light); --amber-border: var(--brand-4-border);
+  --sky: var(--brand-5); --sky-light: var(--brand-5-light); --sky-border: var(--brand-5-border);
+  --red: var(--brand-4); --red-light: var(--brand-4-light); --red-border: var(--brand-4-border);
+
+  --text: #EDE6DC; --text-secondary: #A39B8E; --text-muted: #6B6359;
+  --border: #2E2620; --border-light: #2A2218;
+
+  --font-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  --font-base: 17px;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --width-content: 1040px;
+  --card-border-style: accent;
+  --nav-variant: narrative;
+  --title-variant: typographic;
+}
+
+/* Narrative nav variant — coloured rings per "act" */
+[data-theme="richard-myers-dark"] .deck-nav-link.act-1 { border: 2px solid var(--brand-primary); }
+[data-theme="richard-myers-dark"] .deck-nav-link.act-2 { border: 2px solid var(--brand-secondary); }
+[data-theme="richard-myers-dark"] .deck-nav-link.act-3 { border: 2px solid var(--brand-3); }
+
+/* Typographic title variant */
+[data-theme="richard-myers-dark"] .slide[data-variant="title"] h1 { letter-spacing: -0.02em; }
+
+/* === themes/richard-myers/theme.css === */
+/* ──────────────────────────────────────────────────────────────────────
+   richard-myers — slide-deck theme (light)
+   Active when <html data-theme="richard-myers">.
+   ────────────────────────────────────────────────────────────────────── */
+[data-theme="richard-myers"] {
+  --bg: #FAF8F4; --bg-alt: #F3EFE7; --bg-slide: #FCF9F2; --bg-card: #FCF9F2;
+  --bg-accent: #EDE7DB;
+
+  --brand-primary: #B8501C;
+    --brand-primary-light: rgba(184,80,28,0.10);
+    --brand-primary-border: rgba(184,80,28,0.25);
+  --brand-secondary: #1A5560;
+    --brand-secondary-light: rgba(26,85,96,0.10);
+    --brand-secondary-border: rgba(26,85,96,0.25);
+  --brand-3: #3D4670;
+    --brand-3-light: rgba(61,70,112,0.10);
+    --brand-3-border: rgba(61,70,112,0.25);
+  --brand-4: #993E12;
+    --brand-4-light: rgba(153,62,18,0.10);
+    --brand-4-border: rgba(153,62,18,0.25);
+  --brand-5: #FAE4D2;
+    --brand-5-light: rgba(250,228,210,0.40);
+    --brand-5-border: rgba(250,228,210,0.80);
+  --brand-6: #993E12;
+    --brand-6-light: rgba(153,62,18,0.08);
+    --brand-6-border: rgba(153,62,18,0.20);
+
+  --success: var(--brand-secondary); --success-light: var(--brand-secondary-light); --success-border: var(--brand-secondary-border);
+  --info: var(--brand-3); --info-light: var(--brand-3-light); --info-border: var(--brand-3-border);
+  --highlight: var(--brand-primary); --highlight-light: var(--brand-primary-light); --highlight-border: var(--brand-primary-border);
+  --warning: var(--brand-4); --warning-light: var(--brand-4-light); --warning-border: var(--brand-4-border);
+  --muted-accent: var(--brand-5); --muted-accent-light: var(--brand-5-light); --muted-accent-border: var(--brand-5-border);
+  --danger: var(--brand-4); --danger-light: var(--brand-4-light); --danger-border: var(--brand-4-border);
+
+  --green: var(--brand-secondary); --green-light: var(--brand-secondary-light); --green-border: var(--brand-secondary-border);
+  --blue: var(--brand-3); --blue-light: var(--brand-3-light); --blue-border: var(--brand-3-border);
+  --orange: var(--brand-primary); --orange-light: var(--brand-primary-light); --orange-border: var(--brand-primary-border);
+  --amber: var(--brand-4); --amber-light: var(--brand-4-light); --amber-border: var(--brand-4-border);
+  --sky: var(--brand-5); --sky-light: var(--brand-5-light); --sky-border: var(--brand-5-border);
+  --red: var(--brand-4); --red-light: var(--brand-4-light); --red-border: var(--brand-4-border);
+
+  --text: #1F1C18; --text-secondary: #5C5650; --text-muted: #8E867D;
+  --border: #E5DFD2; --border-light: #EDE8DC;
+
+  --font-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  --font-base: 17px;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --width-content: 1040px;
+  --card-border-style: accent;
+  --nav-variant: narrative;
+  --title-variant: typographic;
+}
+
+/* Narrative nav variant — coloured rings per "act" */
+[data-theme="richard-myers"] .deck-nav-link.act-1 { border: 2px solid var(--brand-primary); }
+[data-theme="richard-myers"] .deck-nav-link.act-2 { border: 2px solid var(--brand-secondary); }
+[data-theme="richard-myers"] .deck-nav-link.act-3 { border: 2px solid var(--brand-3); }
+
+/* Typographic title variant */
+[data-theme="richard-myers"] .slide[data-variant="title"] h1 { letter-spacing: -0.02em; }

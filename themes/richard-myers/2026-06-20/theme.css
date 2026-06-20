@@ -1,0 +1,63 @@
+/* ──────────────────────────────────────────────────────────────────────
+   richard-myers — slide-deck theme (light)
+   Active when <html data-theme="richard-myers">.
+   ────────────────────────────────────────────────────────────────────── */
+[data-theme="richard-myers"] {
+  --bg: #FAF8F4; --bg-alt: #F3EFE7; --bg-slide: #FCF9F2; --bg-card: #FCF9F2;
+  --bg-accent: #EDE7DB;
+
+  --brand-primary: #B8501C;
+    --brand-primary-light: rgba(184,80,28,0.10);
+    --brand-primary-border: rgba(184,80,28,0.25);
+  --brand-secondary: #1A5560;
+    --brand-secondary-light: rgba(26,85,96,0.10);
+    --brand-secondary-border: rgba(26,85,96,0.25);
+  --brand-3: #3D4670;
+    --brand-3-light: rgba(61,70,112,0.10);
+    --brand-3-border: rgba(61,70,112,0.25);
+  --brand-4: #993E12;
+    --brand-4-light: rgba(153,62,18,0.10);
+    --brand-4-border: rgba(153,62,18,0.25);
+  --brand-5: #FAE4D2;
+    --brand-5-light: rgba(250,228,210,0.40);
+    --brand-5-border: rgba(250,228,210,0.80);
+  --brand-6: #993E12;
+    --brand-6-light: rgba(153,62,18,0.08);
+    --brand-6-border: rgba(153,62,18,0.20);
+
+  --success: var(--brand-secondary); --success-light: var(--brand-secondary-light); --success-border: var(--brand-secondary-border);
+  --info: var(--brand-3); --info-light: var(--brand-3-light); --info-border: var(--brand-3-border);
+  --highlight: var(--brand-primary); --highlight-light: var(--brand-primary-light); --highlight-border: var(--brand-primary-border);
+  --warning: var(--brand-4); --warning-light: var(--brand-4-light); --warning-border: var(--brand-4-border);
+  --muted-accent: var(--brand-5); --muted-accent-light: var(--brand-5-light); --muted-accent-border: var(--brand-5-border);
+  --danger: var(--brand-4); --danger-light: var(--brand-4-light); --danger-border: var(--brand-4-border);
+
+  --green: var(--brand-secondary); --green-light: var(--brand-secondary-light); --green-border: var(--brand-secondary-border);
+  --blue: var(--brand-3); --blue-light: var(--brand-3-light); --blue-border: var(--brand-3-border);
+  --orange: var(--brand-primary); --orange-light: var(--brand-primary-light); --orange-border: var(--brand-primary-border);
+  --amber: var(--brand-4); --amber-light: var(--brand-4-light); --amber-border: var(--brand-4-border);
+  --sky: var(--brand-5); --sky-light: var(--brand-5-light); --sky-border: var(--brand-5-border);
+  --red: var(--brand-4); --red-light: var(--brand-4-light); --red-border: var(--brand-4-border);
+
+  --text: #1F1C18; --text-secondary: #5C5650; --text-muted: #8E867D;
+  --border: #E5DFD2; --border-light: #EDE8DC;
+
+  --font-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  --font-base: 17px;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --width-content: 1040px;
+  --card-border-style: accent;
+  --nav-variant: narrative;
+  --title-variant: typographic;
+}
+
+/* Narrative nav variant — coloured rings per "act" */
+[data-theme="richard-myers"] .deck-nav-link.act-1 { border: 2px solid var(--brand-primary); }
+[data-theme="richard-myers"] .deck-nav-link.act-2 { border: 2px solid var(--brand-secondary); }
+[data-theme="richard-myers"] .deck-nav-link.act-3 { border: 2px solid var(--brand-3); }
+
+/* Typographic title variant */
+[data-theme="richard-myers"] .slide[data-variant="title"] h1 { letter-spacing: -0.02em; }

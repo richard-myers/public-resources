@@ -1,19 +1,32 @@
 {
     "resource": "slide-deck",
     "schemaVersion": 1,
-    "generated": "2026-06-19",
+    "generated": "2026-06-20",
     "description": "Slide-deck library \u2014 dependency-free runtime + CSS that renders <deck-*> tags into navigable, hoverable, printable HTML decks.",
     "baseUrl": "https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main",
     "rawBaseUrl": "https://raw.githubusercontent.com/richard-myers/public-resources/main",
     "docs": {
         "components": "slide-decks/components.md"
     },
-    "latest": "1.1.4",
+    "latest": "1.1.5",
     "current": {
         "css": "slide-decks/1/deck.css",
         "js": "slide-decks/1/deck.js"
     },
     "versions": [
+        {
+            "version": "1.1.5",
+            "released": "2026-06-20",
+            "notes": "(no CHANGELOG entry)",
+            "paths": {
+                "css": "slide-decks/1.1.5/deck.css",
+                "js": "slide-decks/1.1.5/deck.js"
+            },
+            "floats": [
+                "1.1",
+                "1"
+            ]
+        },
         {
             "version": "1.1.4",
             "released": "2026-06-19",
@@ -22,10 +35,7 @@
                 "css": "slide-decks/1.1.4/deck.css",
                 "js": "slide-decks/1.1.4/deck.js"
             },
-            "floats": [
-                "1.1",
-                "1"
-            ]
+            "floats": []
         },
         {
             "version": "1.1.3",

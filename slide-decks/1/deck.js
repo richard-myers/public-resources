@@ -1,4 +1,4 @@
-/* claude-utils@881f094 (v1.1.4) */
+/* claude-utils@dc2a230-dirty (v1.1.5) */
 /* === deck.js === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.js — slide-deck library v1 runtime

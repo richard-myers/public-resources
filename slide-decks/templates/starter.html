@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Starter Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  Starter deck (CDN-pinned). Copy this file to start a new deck.
+
+  Asset paths below pin the slide-deck library to v1.1.5 on jsDelivr.
+    - To repin to a newer version: replace `1.1.5` with the target
+      version on both URLs (manifest.json `latest` is canonical).
+    - To track the latest 1.x: replace `1.1.5` with `1` (float — not
+      recommended for shareable decks; pin a specific version unless
+      the author asks for the float).
+    - To author locally against ./library/slide-deck/ instead, swap
+      the two <link>/<script> tags below for:
+        <link rel="stylesheet" href="../deck.css">
+        <script src="../deck.js"></script>
+        <script src="../elements/deck-badge.js"></script>
+        ...one <script> tag per element used...
+      (The CDN deck.js is a single bundle; the local deck.js is the
+      runtime only, so local authoring needs per-element scripts.)
+
+  Important: do NOT add `defer`, `async`, `integrity=`, or
+  `crossorigin=` to the script/link tags below — defer/async breaks
+  the auto-init expand pass; SRI breaks claude.ai iframe embeds.
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main/slide-decks/1.1.5/deck.css">
+<script src="https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main/slide-decks/1.1.5/deck.js"></script>
+</head>
+<body data-status="draft">
+
+<!--
+  @meta block. Canonical spec:
+  https://github.com/richard-myers/claude-utils/blob/main/skills/slide-deck/references/meta-block.md
+
+  THIS BLOCK SHIPS WITH THE DECK FILE — write every value as if the
+  audience will read it. Reframe anything that would embarrass you,
+  the company, the audience, or a third party if read aloud.
+  Replace TODOs before sharing.
+-->
+<!-- @meta
+purpose: TODO — why this deck exists, in one line (the job it does)
+audience: TODO — who is in the room and their context
+desired-takeaway: TODO — what they walk away knowing, deciding, or doing
+occasion: TODO — specific meeting / event, often dated (optional)
+tone: TODO — plain / strategic / field-notes / teaching / pitch (optional)
+intended-runtime: TODO — e.g. 30min + 15min Q&A; guide only (optional)
+status: draft
+created: TODO — YYYY-MM-DD (auto-stamped by the skill on first generate)
+-->
+
+<!--
+  4 nav-visible slides + 1 appendix. Under the auto-nav threshold of
+  5, so every nav-visible slide shows on the top rail. Grow past that
+  and `nav="auto"` switches to chapters-only — add variant="chapter"
+  segues every 5–8 content slides when that happens.
+-->
+<deck-config theme="mapofag" appendix-toggle></deck-config>
+
+<deck-slide id="intro" variant="title" data-nav-label="Intro">
+  <deck-badge variant="info">Replace this badge or remove it</deck-badge>
+  <h1>Deck title</h1>
+  <p class="sub" style="font-size:1.4rem;margin:16px auto 0;">A short subtitle &mdash; what the deck is about.</p>
+  <p style="font-size:0.85rem;color:var(--text-muted);margin-top:24px;">Author &middot; Month YYYY</p>
+</deck-slide>
+
+<deck-slide id="context" data-nav-label="Context">
+  <h2>Why we're here</h2>
+  <p class="sub">One or two sentences of framing. Set the question the
+    rest of the deck answers.</p>
+
+  <deck-callout variant="info" style="margin-top:24px;">
+    <strong>Working principle:</strong> one headline per slide; the
+    sub-line previews the takeaway.
+  </deck-callout>
+</deck-slide>
+
+<deck-slide id="proposal" data-nav-label="Proposal">
+  <h2>What we're proposing</h2>
+  <p class="sub">The recommendation, stated plainly.</p>
+
+  <deck-stat-grid cols="3" style="margin-top:28px;">
+    <deck-card accent="top" tone="success">
+      <deck-card-title>What works</deck-card-title>
+      <p>The strongest argument for the proposal.</p>
+    </deck-card>
+    <deck-card accent="top" tone="info">
+      <deck-card-title>What changes</deck-card-title>
+      <p>The single biggest change from the status quo.</p>
+      <div slot="detail">Hover-reveal detail: more nuance for the
+        room that wants it without cluttering the slide.</div>
+    </deck-card>
+    <deck-card accent="top" tone="warning">
+      <deck-card-title>What we're watching</deck-card-title>
+      <p>The risk or open question that could change the answer.</p>
+    </deck-card>
+  </deck-stat-grid>
+</deck-slide>
+
+<!--
+  Discuss / Q&A is the canonical closing slide. The emoji is a plain
+  character literal sized up via inline style — no new component
+  needed. Pick any glyph that fits the moment: 💬 🗣 ❓ 🤝 🔎 etc.
+-->
+<deck-slide id="discuss" variant="discuss" data-nav-label="Discuss">
+  <h2><span style="font-size:1.4em;vertical-align:-0.05em;">&#x1F4AC;</span> Discussion</h2>
+  <deck-prompt>What did we miss? Where would you push back?</deck-prompt>
+  <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <deck-tag tone="muted">Open question 1</deck-tag>
+    <deck-tag tone="muted">Open question 2</deck-tag>
+    <deck-tag tone="muted">Open question 3</deck-tag>
+  </div>
+</deck-slide>
+
+<deck-slide id="notes" appendix data-nav-label="Appendix">
+  <h2>Appendix &mdash; reference</h2>
+  <p>Appendix slides are numbered A1, A2&hellip;; the
+    <code>appendix-toggle</code> attribute on <code>&lt;deck-config&gt;</code>
+    surfaces a show/hide switch in the settings panel
+    (<kbd>?</kbd> or <kbd>/</kbd>).</p>
+</deck-slide>
+
+</body>
+</html>

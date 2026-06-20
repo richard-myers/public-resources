@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kitchen-sink deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  Kitchen-sink reference deck (CDN-pinned). Doubles as the authoring
+  example AND the regression surface for v1.1.3/4 library changes:
+    (a) <deck-stat> border now picks up --accent-color (see slide 3)
+    (b) <deck-slide nav-hide> per-slide nav opt-out (see slide 8)
+    (c) <deck-config nav="auto"> default: chapters-only on >5 slides
+        (this deck has 9 slides; only chapter/title/discuss show on
+        the top bar — verify by counting nav links)
+    (d) <deck-mark> pills inside a plain .compare-table (see slide 7)
+    (e) <deck-stat-grid cols="6"> six-up headline row (v1.1.5 — see
+        slide 3 trailing row beneath the cols="4" tinted-border grid)
+
+  Asset paths below pin to v1.1.5 on jsDelivr. See starter.html for
+  notes on repinning and switching to local authoring.
+  Important: do NOT add `defer`, `async`, `integrity=`, or
+  `crossorigin=` — defer/async breaks auto-init; SRI breaks claude.ai
+  iframe embeds.
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main/slide-decks/1.1.5/deck.css">
+<script src="https://cdn.jsdelivr.net/gh/richard-myers/public-resources@main/slide-decks/1.1.5/deck.js"></script>
+</head>
+<body data-status="draft">
+
+<!--
+  @meta block. Canonical spec:
+  https://github.com/richard-myers/claude-utils/blob/main/skills/slide-deck/references/meta-block.md
+
+  THIS BLOCK SHIPS WITH THE DECK FILE — write every value as if the
+  audience will read it. Replace TODOs before sharing.
+-->
+<!-- @meta
+purpose: TODO — why this deck exists, in one line (the job it does)
+audience: TODO — who is in the room and their context
+desired-takeaway: TODO — what they walk away knowing, deciding, or doing
+occasion: TODO — specific meeting / event, often dated (optional)
+tone: TODO — plain / strategic / field-notes / teaching / pitch (optional)
+intended-runtime: TODO — e.g. 30min + 15min Q&A; guide only (optional)
+status: draft
+created: TODO — YYYY-MM-DD (auto-stamped by the skill on first generate)
+-->
+
+<!-- nav defaults to "auto" — 9 slides > 5, so the rail shows only
+     variant="title", variant="chapter", and variant="discuss" slides. -->
+<deck-config theme="mapofag"></deck-config>
+
+<!-- SLIDE 1 (title) — shows on nav -->
+<deck-slide id="intro" variant="title" data-nav-label="Intro">
+  <deck-badge variant="info">Authoring reference</deck-badge>
+  <h1>Slide-deck library<br>kitchen sink</h1>
+  <p class="sub">Every pattern an author reaches for &mdash; one deck.</p>
+</deck-slide>
+
+<!-- SLIDE 2 (chapter) — shows on nav -->
+<!--
+  Chapter segues lean on a big emoji as the visual breath. Plain
+  character literal sized up via inline style — no new component
+  needed. Cheap, theme-agnostic, prints fine.
+-->
+<deck-slide id="patterns" variant="chapter" data-nav-label="Patterns">
+  <div style="font-size:5rem;margin-bottom:8px;">&#x1F9F1;</div>
+  <h2>Common patterns</h2>
+  <p class="sub">The next three slides exercise the components that
+    show up in every deck: stat tiles, cards with callouts, flow rows
+    and pros/cons.</p>
+</deck-slide>
+
+<!-- SLIDE 3 — stat-grid; regression surface for (a) tinted borders -->
+<deck-slide id="stats" data-nav-label="Stats">
+  <h2>Stat tiles pick up tone on the border</h2>
+  <p class="sub">In v1.1.3 the <code>&lt;deck-stat&gt;</code> border colour
+    now follows <code>--accent-color</code> &mdash; same variable the value
+    text already used &mdash; so a <code>tone</code> fully colours the tile.</p>
+
+  <deck-stat-grid cols="4" style="margin-top:28px;">
+    <deck-stat tone="success">
+      <deck-stat-value>92%</deck-stat-value>
+      <deck-stat-label>Retention</deck-stat-label>
+      <div slot="detail">Up from 78% in 2024; measured monthly,
+        14-day rolling cohort.</div>
+    </deck-stat>
+    <deck-stat tone="info">
+      <deck-stat-value>3.1&times;</deck-stat-value>
+      <deck-stat-label>YoY revenue</deck-stat-label>
+    </deck-stat>
+    <deck-stat tone="warning">
+      <deck-stat-value>18%</deck-stat-value>
+      <deck-stat-label>Churn</deck-stat-label>
+    </deck-stat>
+    <deck-stat tone="danger">
+      <deck-stat-value>4</deck-stat-value>
+      <deck-stat-label>Open Sev-1s</deck-stat-label>
+    </deck-stat>
+  </deck-stat-grid>
+
+  <deck-callout variant="info" style="margin-top:24px;">
+    <strong>Hover the first tile.</strong> Any element with a
+    <code>&lt;div slot="detail"&gt;</code> child auto-promotes to a
+    numbered hoverable; the detail surfaces in the bottom overlay.
+  </deck-callout>
+
+  <!-- v1.1.5 regression surface: cols="6" headline-number row. -->
+  <p style="font-size:0.85rem;color:var(--text-muted);margin:24px 0 4px;">
+    Below: six-up row (<code>cols="6"</code>, new in v1.1.5) for tight
+    headline numbers. Tiles narrower but still legible for short values.
+  </p>
+  <deck-stat-grid cols="6">
+    <deck-stat><deck-stat-value>774</deck-stat-value><deck-stat-label>Sessions</deck-stat-label></deck-stat>
+    <deck-stat tone="info"><deck-stat-value>9</deck-stat-value><deck-stat-label>Projects</deck-stat-label></deck-stat>
+    <deck-stat tone="success"><deck-stat-value>2.5k</deck-stat-value><deck-stat-label>Messages</deck-stat-label></deck-stat>
+    <deck-stat tone="warning"><deck-stat-value>28k</deck-stat-value><deck-stat-label>Tool calls</deck-stat-label></deck-stat>
+    <deck-stat tone="highlight"><deck-stat-value>1.2M</deck-stat-value><deck-stat-label>Words</deck-stat-label></deck-stat>
+    <deck-stat tone="info"><deck-stat-value>35</deck-stat-value><deck-stat-label>Active days</deck-stat-label></deck-stat>
+  </deck-stat-grid>
+</deck-slide>
+
+<!-- SLIDE 4 — cards + callouts -->
+<deck-slide id="cards" data-nav-label="Cards">
+  <h2>Cards carry headers, body, and optional accents</h2>
+
+  <deck-stat-grid cols="3" style="margin-top:24px;">
+    <deck-card accent="top" tone="success">
+      <deck-card-title>Strengths</deck-card-title>
+      <p>Stock cards lean on <code>accent="top"</code> for an accent
+        stripe and <code>tone</code> for the heading colour.</p>
+    </deck-card>
+    <deck-card accent="top" tone="warning">
+      <deck-card-title>Watch-outs</deck-card-title>
+      <p>The same shape supports six tones &mdash; use them sparingly so
+        each colour keeps signal.</p>
+    </deck-card>
+    <deck-card accent="top" tone="info">
+      <deck-card-title>Next steps</deck-card-title>
+      <p>Hover the right-hand card for a detail block.</p>
+      <div slot="detail">Hover detail lives on any card-like host;
+        the overlay shows under the rail and the print-notes layout
+        re-uses the same source.</div>
+    </deck-card>
+  </deck-stat-grid>
+</deck-slide>
+
+<!-- SLIDE 5 — flow + pros/cons -->
+<deck-slide id="flow" data-nav-label="Flow">
+  <h2>Flow rows + pros / cons</h2>
+
+  <deck-flow style="margin-top:18px;">
+    <deck-flow-step tone="info">Collect
+      <deck-flow-sub>Surveys, sensors, satellite</deck-flow-sub>
+    </deck-flow-step>
+    <deck-flow-step tone="highlight">Refine
+      <deck-flow-sub>Normalise, dedupe, label</deck-flow-sub>
+    </deck-flow-step>
+    <deck-flow-step tone="success">Publish
+      <deck-flow-sub>Dashboards + API</deck-flow-sub>
+    </deck-flow-step>
+  </deck-flow>
+
+  <deck-pros-cons style="margin-top:28px;">
+    <deck-pros label="What works">
+      <li>One data shape per crop &mdash; no per-customer schema drift.</li>
+      <li>Refresh is incremental; the producer never re-uploads.</li>
+    </deck-pros>
+    <deck-cons label="What hurts">
+      <li>Onboarding still needs a human-in-the-loop for the first run.</li>
+      <li>The producer mobile UI lags the web one by a release.</li>
+    </deck-cons>
+  </deck-pros-cons>
+</deck-slide>
+
+<!-- SLIDE 6 (chapter) — shows on nav -->
+<deck-slide id="compare" variant="chapter" data-nav-label="Compare">
+  <div style="font-size:5rem;margin-bottom:8px;">&#x2696;&#xFE0F;</div>
+  <h2>Comparison</h2>
+  <p class="sub">The 3-col feature table the library deliberately doesn't
+    wrap &mdash; with <code>&lt;deck-mark&gt;</code> doing duty as the
+    coloured cell pill.</p>
+</deck-slide>
+
+<!-- SLIDE 7 — compare-table with deck-mark pills; regression surface for (d) -->
+<deck-slide id="compare-table" data-nav-label="Compare table">
+  <h2>3-col compare with <code>&lt;deck-mark&gt;</code> pills</h2>
+
+  <table class="compare-table" style="margin-top:18px;">
+    <thead>
+      <tr>
+        <th style="text-align:left;">Dimension</th>
+        <th>Option A</th>
+        <th>Option B</th>
+        <th>Option C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Time to first value</td>
+        <td><deck-mark tone="success">Days</deck-mark></td>
+        <td><deck-mark tone="warning">Weeks</deck-mark></td>
+        <td><deck-mark tone="danger">Months</deck-mark></td>
+      </tr>
+      <tr>
+        <td>Per-customer cost</td>
+        <td><deck-mark tone="warning">Medium</deck-mark></td>
+        <td><deck-mark tone="success">Low</deck-mark></td>
+        <td><deck-mark tone="info">Variable</deck-mark></td>
+      </tr>
+      <tr>
+        <td>Data ownership</td>
+        <td><deck-mark tone="success">Customer</deck-mark></td>
+        <td><deck-mark tone="muted">Shared</deck-mark></td>
+        <td><deck-mark tone="highlight">Producer</deck-mark></td>
+      </tr>
+      <tr>
+        <td>GDPR boundary clarity</td>
+        <td><deck-mark tone="success">Clean</deck-mark></td>
+        <td><deck-mark tone="warning">Fuzzy</deck-mark></td>
+        <td><deck-mark tone="danger">Hard</deck-mark></td>
+      </tr>
+    </tbody>
+  </table>
+</deck-slide>
+
+<!-- SLIDE 8 — content slide hidden from nav; regression surface for (b) -->
+<deck-slide id="backup" nav-hide data-nav-label="Backup numbers">
+  <h2>Backup numbers (off-rail)</h2>
+  <p class="sub">This slide has <code>nav-hide</code> on the
+    <code>&lt;deck-slide&gt;</code>, so it doesn't appear on the top
+    nav even when nav mode is <code>all</code>. Reach it via keyboard or
+    direct hash (<a href="#backup"><code>#backup</code></a>).</p>
+
+  <deck-callout variant="muted" style="margin-top:24px;">
+    <strong>Use case:</strong> appendix-grade content you want
+    available during Q&amp;A but not cluttering the top rail. (Different
+    from <code>appendix</code>, which keeps the slide numbered A1, A2&hellip;
+    and is still nav-visible.)
+  </deck-callout>
+</deck-slide>
+
+<!-- SLIDE 9 (discuss) — shows on nav -->
+<deck-slide id="discuss" variant="discuss" data-nav-label="Discuss">
+  <div style="font-size:5rem;margin-bottom:8px;">&#x1F4AC;</div>
+  <h2>Discussion</h2>
+  <deck-prompt>What did the kitchen sink miss?</deck-prompt>
+  <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <deck-tag tone="muted">Charts</deck-tag>
+    <deck-tag tone="muted">Timeline</deck-tag>
+    <deck-tag tone="muted">Step-row</deck-tag>
+    <deck-tag tone="muted">Gauge</deck-tag>
+    <deck-tag tone="muted">Pullquote</deck-tag>
+  </div>
+</deck-slide>
+
+</body>
+</html>
