@@ -8,24 +8,34 @@
     "docs": {
         "components": "slide-decks/components.md"
     },
-    "latest": "1.1.5",
+    "latest": "1.1.6",
     "current": {
         "css": "slide-decks/1/deck.css",
         "js": "slide-decks/1/deck.js"
     },
     "versions": [
         {
-            "version": "1.1.5",
+            "version": "1.1.6",
             "released": "2026-06-20",
-            "notes": "(no CHANGELOG entry)",
+            "notes": "Draft watermark. `<body data-status=\"draft\">` now renders a fixed. bottom-left `DRAFT` pill via `body[data-status=\"draft\"]::after` \u2014 warning tone, mono font, persistent across every slide. Print-safe (`@media print` keeps the rule active so PDFs inherit the marker). The attribute mirrors the `@meta` `status:` field that the slide-deck skill writes into every generated deck (see `skills/slide-deck/references/meta-block.md`). `status: ready` removes the watermark; absence of the attribute is treated the same. Companion to the slide-level `[data-status=\"draft\"]` marker that already existed for individual draft slides (lines 296\u2013305) \u2014 these are orthogonal: slide-level marks a single slide as WIP, body-level marks the whole deck.",
             "paths": {
-                "css": "slide-decks/1.1.5/deck.css",
-                "js": "slide-decks/1.1.5/deck.js"
+                "css": "slide-decks/1.1.6/deck.css",
+                "js": "slide-decks/1.1.6/deck.js"
             },
             "floats": [
                 "1.1",
                 "1"
             ]
+        },
+        {
+            "version": "1.1.5",
+            "released": "2026-06-20",
+            "notes": "Theme bundles. `bin/deck-build` now concatenates every. `themes/*/theme.css` into the published `deck.css` bundle alongside the runtime + `:root` defaults. Each theme's rules are scoped to `[data-theme=\"<name>\"]` so they're inert until the runtime switcher sets the attribute \u2014 bundling has no visual effect on decks pinning to a single theme via `<deck-config theme=\"\u2026\">`. Fix for: decks loading only the published `deck.css` saw the in-page theme switcher offer themes the bundle couldn't honour, leaving `--brand-primary` (and friends) stuck on the mapofag `:root` defaults after a switch. The library's existing comment in `deck.css` (\"rules to `[data-theme=\"<name>\"]` on `<html>`\") and the skill's \"Do NOT load `themes/<theme>/latest/theme.css` separately\" guidance already described this behaviour \u2014 the build just wasn't delivering it. CSS bundle grows ~3KB per theme; cost is one-time and entirely inert until referenced.",
+            "paths": {
+                "css": "slide-decks/1.1.5/deck.css",
+                "js": "slide-decks/1.1.5/deck.js"
+            },
+            "floats": []
         },
         {
             "version": "1.1.4",
@@ -106,6 +116,10 @@
                 {
                     "date": "2026-06-19",
                     "path": "themes/mapofag/2026-06-19/theme.css"
+                },
+                {
+                    "date": "2026-06-20",
+                    "path": "themes/mapofag/2026-06-20/theme.css"
                 }
             ]
         },
@@ -116,6 +130,10 @@
                 {
                     "date": "2026-06-19",
                     "path": "themes/richard-myers/2026-06-19/theme.css"
+                },
+                {
+                    "date": "2026-06-20",
+                    "path": "themes/richard-myers/2026-06-20/theme.css"
                 }
             ]
         },
@@ -126,6 +144,10 @@
                 {
                     "date": "2026-06-19",
                     "path": "themes/richard-myers-dark/2026-06-19/theme.css"
+                },
+                {
+                    "date": "2026-06-20",
+                    "path": "themes/richard-myers-dark/2026-06-20/theme.css"
                 }
             ]
         }

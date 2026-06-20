@@ -1,4 +1,4 @@
-/* claude-utils@dc2a230-dirty (v1.1.5) */
+/* claude-utils@1493c04-dirty (v1.1.6) */
 /* === deck.css === */
 /* ──────────────────────────────────────────────────────────────────────
    deck.css — slide-deck library v1
@@ -304,6 +304,28 @@ body.show-drafts .slide[data-status="draft"]::after {
   font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 2px;
   background: var(--warning); color: #fff; padding: 3px 10px; border-radius: 4px;
   z-index: 5;
+}
+
+/* Deck-level draft status — <body data-status="draft"> mirrors the
+   @meta `status` field (see skills/slide-deck/references/meta-block.md
+   for the source-of-truth contract). Persistent corner watermark so
+   the author and any reader of a shared draft sees the marker on
+   every slide. Survives print / PDF intentionally. */
+body[data-status="draft"]::after {
+  content: 'DRAFT';
+  position: fixed; bottom: 18px; left: 18px;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 3px;
+  background: var(--warning); color: #fff;
+  padding: 5px 14px; border-radius: 4px;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+@media print {
+  body[data-status="draft"]::after {
+    position: fixed; bottom: 6mm; left: 6mm;
+    /* Print engines drop CSS shadows; keep the contrast via the pill. */
+  }
 }
 
 /* Audience-mode filtering (driven by <deck-config modes="...">) */
